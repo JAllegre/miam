@@ -1,4 +1,5 @@
 import reactLogo from "./assets/react.svg";
+import { Button } from "./components/ui/button";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
         <h1>UNDER CONSTRUCTION</h1>
+        <Button>Button</Button>
       </div>
     </>
   );
