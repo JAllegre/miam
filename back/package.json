@@ -1,0 +1,23 @@
+{
+  "name": "miam-back",
+  "version": "1.0.0",
+  "description": "Backend for the miam app",
+  "main": "main.tsx",
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/main.js",
+    "dev": "tsx watch main.tsx",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "JAllegre",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.23",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  }
+}
