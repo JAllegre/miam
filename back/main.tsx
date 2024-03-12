@@ -1,15 +1,19 @@
 import express, { Request, Response } from "express";
+import cors from "cors";
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ message: "Hello World" });
 });
 
-app.get("/recipes", (req: Request, res: Response) => {
+app.get("/miam/recipes", (req: Request, res: Response) => {
   res.json({
-    data: [
+    count: 4,
+    recipes: [
       { id: 1, name: "Achards de Légumes", kind: 2 },
       { id: 2, name: "Arrosto misto", kind: 2 },
       { id: 93, name: "Babas au Rhum de Vovonne ***", kind: 4 },
@@ -18,9 +22,9 @@ app.get("/recipes", (req: Request, res: Response) => {
   });
 });
 
-app.get("/recipes/:id", (req: Request, res: Response) => {
+app.get("/miam/recipes/:id", (req: Request, res: Response) => {
   res.json({
-    data: {
+    recipe: {
       id: 4,
       name: "Blinis",
       ingredients:
@@ -34,11 +38,11 @@ app.get("/recipes/:id", (req: Request, res: Response) => {
   });
 });
 
-app.post("/recipes", (req: Request, res: Response) => {
+app.post("/miam/recipes", (req: Request, res: Response) => {
   res.status(201).json({ message: "Recipe successfully added" });
 });
 
-app.put("/recipes/:id", (req: Request, res: Response) => {
+app.put("/miam/recipes/:id", (req: Request, res: Response) => {
   res.status(200).json({ message: "Recipe successfully updated" });
 });
 

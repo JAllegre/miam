@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --nav-height: 50px;
+}
+
 html,
 body,
 label {

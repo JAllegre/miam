@@ -1,24 +1,17 @@
-import {
-  ChangeEvent,
-  ReactNode,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { ReactNode, useContext, useState } from "react";
 // import { FaGlassMartiniAlt } from "react-icons/fa";
 // import { GiMeat } from "react-icons/gi";
 // import { RiCake3Line } from "react-icons/ri";
 // import { getAllRecipes } from "../db";
 
-import { Link } from "react-router-dom";
-import { Badge } from "./components/ui/badge";
-import { Button } from "./components/ui/button";
-import { Checkbox } from "./components/ui/checkbox";
-import { Label } from "./components/ui/label";
-import { SearchContext } from "./contexts/SearchContext";
-import { Paths } from "./lib/constants";
-import { RecipeKind, RecipeRowShort } from "./types";
+import { Link, useLoaderData } from "react-router-dom";
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
+import { Checkbox } from "./ui/checkbox";
+import { Label } from "./ui/label";
+import { SearchContext } from "../contexts/SearchContext";
+import { Paths } from "../lib/constants";
+import { GetRecipesResponse, RecipeKind } from "../types";
 
 // flat a string by removing accents and diacritics in order to make hl comparaison
 function flatString(s?: string): string {
@@ -33,24 +26,11 @@ function flatString(s?: string): string {
 
 export default function RecipesPage() {
   const [selectedKind, setSelectedKind] = useState(0);
-  const [recipes, setRecipes] = useState<RecipeRowShort[]>([]);
+  const { recipes } = useLoaderData() as GetRecipesResponse;
 
-  useEffect(() => {
-    async function fetchAndSetRecipes() {
-      //   const r = await getAllRecipes();
-      //   setRecipes(r);
-    }
-
-    fetchAndSetRecipes();
-  }, []);
-
-  const handleChangeKind = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
-    const newValue = Number(evt.target.value);
-
-    setSelectedKind((prevValue) => {
-      return newValue === prevValue ? 0 : Number(evt.target.value);
-    });
-  }, []);
+  const handleCheckedChange = (value: RecipeKind) => (checked: boolean) => {
+    setSelectedKind(checked ? value : 0);
+  };
 
   const { searchText } = useContext(SearchContext);
   return (
@@ -58,35 +38,32 @@ export default function RecipesPage() {
       <div className="flex justify-between">
         <div className="flex justify-center items-center gap-1 focus:border-0">
           <Checkbox
-            id="course"
-            value={RecipeKind.Course}
+            id="cb-course"
             checked={selectedKind === RecipeKind.Course}
-            onChange={handleChangeKind}
+            onCheckedChange={handleCheckedChange(RecipeKind.Course)}
             className="focus:ring-0"
           />
-          <Label htmlFor="course" className="mr-3">
+          <Label htmlFor="cb-course" className="mr-3">
             Plats
           </Label>
 
           <Checkbox
-            id="dessert"
-            value={RecipeKind.Dessert}
+            id="cb-dessert"
             checked={selectedKind === RecipeKind.Dessert}
-            onChange={handleChangeKind}
+            onCheckedChange={handleCheckedChange(RecipeKind.Dessert)}
             className="focus:ring-0"
           />
-          <Label htmlFor="dessert" className="mr-3">
+          <Label htmlFor="cb-dessert" className="mr-3">
             Dessert
           </Label>
 
           <Checkbox
-            id="drink"
-            value={RecipeKind.Drink}
+            id="cb-drink"
             checked={selectedKind === RecipeKind.Drink}
-            onChange={handleChangeKind}
+            onCheckedChange={handleCheckedChange(RecipeKind.Drink)}
             className="focus:ring-0"
           />
-          <Label htmlFor="drink" className="">
+          <Label htmlFor="cb-drink" className="">
             Boisson
           </Label>
         </div>

@@ -30,3 +30,12 @@ export interface RecipeRowShort {
   name: string;
   kind: number;
 }
+
+export interface GetRecipesResponse {
+  recipes: RecipeRowShort[];
+  numRows: number;
+}
+
+export interface GetRecipeResponse {
+  recipe: RecipeRow;
+}
