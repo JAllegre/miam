@@ -1,28 +1,13 @@
+import { matchSearch } from "@/lib/tools";
+import { CakeSlice, Soup, Wine } from "lucide-react";
 import { ReactNode, useContext, useState } from "react";
-// import { FaGlassMartiniAlt } from "react-icons/fa";
-// import { GiMeat } from "react-icons/gi";
-// import { RiCake3Line } from "react-icons/ri";
-// import { getAllRecipes } from "../db";
-
 import { Link, useLoaderData } from "react-router-dom";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
-import { Checkbox } from "./ui/checkbox";
-import { Label } from "./ui/label";
 import { SearchContext } from "../contexts/SearchContext";
 import { Paths } from "../lib/constants";
 import { GetRecipesResponse, RecipeKind } from "../types";
-
-// flat a string by removing accents and diacritics in order to make hl comparaison
-function flatString(s?: string): string {
-  if (!s) {
-    return "";
-  }
-  return s
-    .toLocaleLowerCase()
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "");
-}
+import { Button } from "./ui/button";
+import { Checkbox } from "./ui/checkbox";
+import { Label } from "./ui/label";
 
 export default function RecipesPage() {
   const [selectedKind, setSelectedKind] = useState(0);
@@ -79,12 +64,7 @@ export default function RecipesPage() {
           if (selectedKind && selectedKind !== recipe.kind) {
             return acc;
           }
-          if (
-            searchText &&
-            !flatString(recipe.name).includes(
-              flatString(searchText).toLocaleLowerCase()
-            )
-          ) {
+          if (!matchSearch(searchText, recipe.name)) {
             return acc;
           }
           return [
@@ -93,21 +73,30 @@ export default function RecipesPage() {
               <Link to={`${Paths.Recipes}/${recipe.id}`}>
                 <div className="flex items-center justify-start gap-2">
                   {recipe.kind === RecipeKind.Course && (
-                    <Badge color="pink" className="p-[4px] text-md">
-                      {/* <GiMeat /> */}P
-                    </Badge>
+                    <Soup
+                      size={18}
+                      strokeWidth={3}
+                      color="purple"
+                      className="mb-1"
+                    />
                   )}
 
                   {recipe.kind === RecipeKind.Dessert && (
-                    <Badge color="success" className="p-[4px] text-md">
-                      {/* <RiCake3Line /> */}D
-                    </Badge>
+                    <CakeSlice
+                      size={18}
+                      strokeWidth={3}
+                      color="orange"
+                      className="mb-1"
+                    />
                   )}
 
                   {recipe.kind === RecipeKind.Drink && (
-                    <Badge color="warning" className="p-[4px] text-sm">
-                      {/* <FaGlassMartiniAlt /> */}A
-                    </Badge>
+                    <Wine
+                      size={18}
+                      strokeWidth={3}
+                      color="green"
+                      className="mb-1"
+                    />
                   )}
 
                   <span>{recipe.name}</span>

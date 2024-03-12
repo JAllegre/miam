@@ -2,18 +2,19 @@
   "name": "miam-back",
   "version": "1.0.0",
   "description": "Backend for the miam app",
-  "main": "main.tsx",
+  "main": "main.ts",
   "scripts": {
     "build": "tsc",
     "start": "node build/main.js",
-    "dev": "tsx watch main.tsx",
+    "dev": "tsx watch main.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "JAllegre",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.3"
+    "express": "^4.18.3",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

@@ -6,11 +6,12 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
-import RecipesPage from "./components/RecipesPage";
-import Root from "./routes/Root";
-import { getAllRecipes, getOneRecipe } from "./lib/api";
-import "./main.css";
 import RecipePage from "./components/RecipePage";
+import RecipesPage from "./components/RecipesPage";
+import { getAllRecipes, getOneRecipe } from "./lib/api";
+import { Paths } from "./lib/constants";
+import "./main.css";
+import Root from "./routes/Root";
 
 const router = createBrowserRouter([
   {
@@ -19,17 +20,17 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Navigate to="/recipes" replace />,
+        element: <Navigate to={Paths.Recipes} replace />,
       },
       {
-        path: "/recipes",
+        path: Paths.Recipes,
         element: <RecipesPage />,
         loader: async () => {
           return getAllRecipes();
         },
       },
       {
-        path: "/recipes/:recipeId",
+        path: `${Paths.Recipes}/:recipeId`,
         element: <RecipePage />,
         loader: async ({ params: { recipeId } }) => {
           return getOneRecipe(parseInt(recipeId || "", 10));
