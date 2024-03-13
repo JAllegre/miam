@@ -12,6 +12,6 @@ RUN npm install
 
 RUN npm run build
 
-CMD ["node", "build/back/main.js"]
+CMD ["node", "build/back/src/main.js"]
 
 
