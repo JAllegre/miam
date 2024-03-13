@@ -12,6 +12,4 @@ FROM nginx:latest
 
 COPY --from=buildStage /app/dist /usr/share/nginx/html
 
-COPY --from=buildStage /app/dist /usr/share/nginx/html/miam
-
 COPY ./front/nginx.default.conf /etc/nginx/conf.d/default.conf
