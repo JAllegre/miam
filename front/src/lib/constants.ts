@@ -1,3 +1,3 @@
 export const Paths = {
-  Recipes: "/recipes",
+  Recipes: "/miam/recipes",
 };

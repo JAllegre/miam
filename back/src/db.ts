@@ -1,7 +1,7 @@
 "use server";
 import sqlite3 from "sqlite3";
-import { DB_TABLE_RECIPES, DB_FILENAME } from "./lib/constants";
 import { RecipeInput, RecipeRow, RecipeRowShort } from "../../front/src/types";
+import { DB_FILENAME, DB_TABLE_RECIPES } from "./lib/constants";
 
 const sqlite3v = sqlite3.verbose();
 
@@ -123,7 +123,10 @@ export async function insertOneRecipe(recipeInput: RecipeInput): Promise<void> {
   });
 }
 
-export async function updateOneRecipe(recipeInput: RecipeInput): Promise<void> {
+export async function updateOneRecipe(
+  recipeId: number,
+  recipeInput: RecipeInput
+): Promise<void> {
   console.log("db.tsx/updateOneRecipe | recipeInput=", recipeInput);
   const db = await connectDb();
   return new Promise((resolve, reject) => {
@@ -140,7 +143,7 @@ export async function updateOneRecipe(recipeInput: RecipeInput): Promise<void> {
             recipeInput.steps,
             recipeInput.peopleNumber,
             recipeInput.imageDataUrl,
-            recipeInput.id,
+            recipeId,
           ],
           (err: Error) => {
             if (err) {

@@ -13,7 +13,10 @@ export default function ErrorPage() {
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
       <p>
-        <i>{"statusText" in error ? error.statusText : error.message}</i>
+        <i>{"statusText" in error ? String(error.statusText) : ""}</i>
+        <i>{"error" in error ? String(error.error) : ""}</i>
+        <i>{"message" in error ? String(error.message) : ""}</i>
+        <i>{"data" in error ? String(error.data) : ""}</i>
       </p>
     </div>
   );

@@ -23,6 +23,10 @@ const router = createBrowserRouter([
         element: <Navigate to={Paths.Recipes} replace />,
       },
       {
+        path: "/miam/",
+        element: <Navigate to={Paths.Recipes} replace />,
+      },
+      {
         path: Paths.Recipes,
         element: <RecipesPage />,
         loader: async () => {

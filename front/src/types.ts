@@ -12,7 +12,6 @@ export interface RecipeInput {
   kind: RecipeKind;
   peopleNumber?: number;
   imageDataUrl?: string;
-  id?: number;
 }
 
 export interface RecipeRow {

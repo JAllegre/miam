@@ -2,7 +2,7 @@ FROM node:20-bookworm-slim as buildStage
 
 WORKDIR /app
 
-COPY ./ ./
+COPY ./front ./
 
 RUN npm install
 
@@ -12,4 +12,6 @@ FROM nginx:latest
 
 COPY --from=buildStage /app/dist /usr/share/nginx/html
 
-COPY ./nginx.default.conf /etc/nginx/conf.d/default.conf
+COPY --from=buildStage /app/dist /usr/share/nginx/html/miam
+
+COPY ./front/nginx.default.conf /etc/nginx/conf.d/default.conf
