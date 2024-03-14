@@ -87,7 +87,7 @@ export async function getOneRecipe(id: number): Promise<RecipeRow> {
 }
 
 export async function insertOneRecipe(recipeInput: RecipeInput): Promise<void> {
-  console.log("db.tsx/insertOneRecipe | recipeInput=", recipeInput);
+  console.log("db.tsx/insertOneRecipe | recipeInput=", !!recipeInput);
   const db = await connectDb();
   return new Promise((resolve, reject) => {
     let stmt: sqlite3.Statement | undefined;
@@ -127,7 +127,7 @@ export async function updateOneRecipe(
   recipeId: number,
   recipeInput: RecipeInput
 ): Promise<void> {
-  console.log("db.tsx/updateOneRecipe | recipeInput=", recipeInput);
+  console.log("db.tsx/updateOneRecipe | recipeInput=", !!recipeInput);
   const db = await connectDb();
   return new Promise((resolve, reject) => {
     let stmt: sqlite3.Statement | undefined;

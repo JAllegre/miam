@@ -1,6 +1,7 @@
+import { Paths } from "@/lib/constants";
 import { getLabelFromRecipeKind } from "@/lib/tools";
 import { GetRecipeResponse } from "@common/types";
-import { useLoaderData, useParams } from "react-router-dom";
+import { Link, useLoaderData, useParams } from "react-router-dom";
 // import { Button } from "./ui/button";
 
 // Display a line of text
@@ -14,7 +15,7 @@ export default function RecipePage() {
   const { name, ingredients, steps, peopleNumber, imageDataUrl, kind } =
     recipe || {};
 
-  console.log("***ju***RecipePage.tsx/28", recipeId, recipeId);
+  console.log("***ju***RecipePage.tsx/28", "recipeId", recipeId);
   return (
     <main className="p-1">
       <div className="flex justify-between">
@@ -22,13 +23,13 @@ export default function RecipePage() {
           {name} [{getLabelFromRecipeKind(kind)}]
         </div>
         {/* <Button color="warning" size="sm"> */}
-        {/* <Link
-            href={`${Paths.Recipes}/${recipeId}/update`}
-            className="text-[20px]"
-          > */}
-        {/* <MdEdit /> */}
-        {/* EDIT */}
-        {/* </Link> */}
+        <Link
+          to={`${Paths.Recipes}/${recipeId}/update`}
+          className="text-[20px]"
+        >
+          {/* <MdEdit /> */}
+          {"!"}
+        </Link>
         {/* </Button> */}
       </div>
 
@@ -39,8 +40,8 @@ export default function RecipePage() {
             {!!peopleNumber && <span>(pour {peopleNumber} personnes)</span>}
           </div>
           <ul>
-            {ingredients?.split(/\r?\n/).map((ingredient) => (
-              <Line key={ingredient} text={ingredient} />
+            {ingredients?.split(/\r?\n/).map((ingredient, i) => (
+              <Line key={`${ingredient}-${i}`} text={ingredient} />
             ))}
           </ul>
         </div>
@@ -56,8 +57,8 @@ export default function RecipePage() {
 
       <div className="text-md font-medium pt-4">Préparation</div>
       <ul>
-        {steps?.split(/\r?\n/).map((step) => (
-          <Line key={step} text={step} />
+        {steps?.split(/\r?\n/).map((step, i) => (
+          <Line key={`${step}-${i}`} text={step} />
         ))}
       </ul>
     </main>

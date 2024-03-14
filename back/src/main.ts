@@ -1,3 +1,4 @@
+import bodyParser from "body-parser";
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import morgan from "morgan";
@@ -13,7 +14,7 @@ const port = process.env.PORT || 8084;
 const RECIPES_API = "/api/miam/recipes";
 
 app.use(morgan("combined"));
-
+app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/", (_req: Request, res: Response) => {
