@@ -1,9 +1,9 @@
 // !!! Use TSX to run this script (npm i -g tsx && tsx tools/deleteRow.ts )
 
+import { RecipeKind } from "@common/types";
 import { readFileSync } from "node:fs";
 import sqlite3 from "sqlite3";
-import { DB_TABLE_RECIPES, DB_FILENAME } from "../src/lib/constants";
-import { RecipeKind } from "../../front/src/types";
+import { DB_FILENAME, DB_TABLE_RECIPES } from "../src/lib/constants";
 interface RecipeData {
   recipeName: string;
   recipePeople: string;

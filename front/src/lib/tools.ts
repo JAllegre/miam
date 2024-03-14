@@ -1,4 +1,4 @@
-import { RecipeKind } from "../types";
+import { RecipeKind } from "@common/types";
 
 /**
  * Returns the label corresponding to a RecipeKind.

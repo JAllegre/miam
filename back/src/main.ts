@@ -10,7 +10,7 @@ import {
 
 const app = express();
 const port = process.env.PORT || 8084;
-const miamRecipesApiPrefix = "/api/miam/recipes";
+const RECIPES_API = "/api/miam/recipes";
 
 app.use(morgan("combined"));
 
@@ -20,7 +20,7 @@ app.get("/", (_req: Request, res: Response) => {
   res.status(200).json({ message: "OK" });
 });
 
-app.get(`${miamRecipesApiPrefix}`, async (req: Request, res: Response) => {
+app.get(`${RECIPES_API}`, async (req: Request, res: Response) => {
   const recipes = await getAllRecipes();
   res.json({
     count: recipes.length,
@@ -28,28 +28,22 @@ app.get(`${miamRecipesApiPrefix}`, async (req: Request, res: Response) => {
   });
 });
 
-app.get(
-  `${miamRecipesApiPrefix}/:recipeId`,
-  async (req: Request, res: Response) => {
-    const recipe = await getOneRecipe(parseInt(req.params.recipeId, 10));
-    res.json({
-      recipe,
-    });
-  }
-);
+app.get(`${RECIPES_API}/:recipeId`, async (req: Request, res: Response) => {
+  const recipe = await getOneRecipe(parseInt(req.params.recipeId, 10));
+  res.json({
+    recipe,
+  });
+});
 
-app.post(`${miamRecipesApiPrefix}`, async (req: Request, res: Response) => {
+app.post(`${RECIPES_API}`, async (req: Request, res: Response) => {
   await insertOneRecipe(req.body);
   res.status(201).json({ message: "Recipe successfully added" });
 });
 
-app.put(
-  `${miamRecipesApiPrefix}/:recipeId`,
-  async (req: Request, res: Response) => {
-    await updateOneRecipe(parseInt(req.params.recipeId, 10), req.body);
-    res.json({ message: "Recipe successfully updated" });
-  }
-);
+app.put(`${RECIPES_API}/:recipeId`, async (req: Request, res: Response) => {
+  await updateOneRecipe(parseInt(req.params.recipeId, 10), req.body);
+  res.json({ message: "Recipe successfully updated" });
+});
 
 const server = app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

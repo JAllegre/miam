@@ -1,5 +1,5 @@
 import { getLabelFromRecipeKind } from "@/lib/tools";
-import { GetRecipeResponse } from "@/types";
+import { GetRecipeResponse } from "@common/types";
 import { useLoaderData, useParams } from "react-router-dom";
 // import { Button } from "./ui/button";
 

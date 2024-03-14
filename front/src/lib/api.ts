@@ -1,7 +1,7 @@
-import { GetRecipeResponse, GetRecipesResponse } from "@/types";
-const miamRecipesApiPrefix = "/api/miam/recipes";
+import { RECIPES_API } from "@common/constants";
+import { GetRecipeResponse, GetRecipesResponse } from "@common/types";
 
-const baseApiUrl = `${import.meta.env.VITE_API_HOST}${miamRecipesApiPrefix}`;
+const baseApiUrl = `${import.meta.env.VITE_API_HOST}${RECIPES_API}`;
 
 export async function getAllRecipes(): Promise<GetRecipesResponse> {
   try {

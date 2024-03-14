@@ -1,10 +1,10 @@
 import { matchSearch } from "@/lib/tools";
+import { GetRecipesResponse, RecipeKind } from "@common/types";
 import { CakeSlice, Soup, Wine } from "lucide-react";
 import { ReactNode, useContext, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { SearchContext } from "../contexts/SearchContext";
 import { Paths } from "../lib/constants";
-import { GetRecipesResponse, RecipeKind } from "../types";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 
