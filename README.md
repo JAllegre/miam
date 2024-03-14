@@ -1,2 +1,2 @@
-# miam2
+# miam
 My Recipes app
