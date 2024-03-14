@@ -15,7 +15,6 @@ export default function RecipePage() {
   const { name, ingredients, steps, peopleNumber, imageDataUrl, kind } =
     recipe || {};
 
-  console.log("***ju***RecipePage.tsx/28", "recipeId", recipeId);
   return (
     <main className="p-1">
       <div className="flex justify-between">

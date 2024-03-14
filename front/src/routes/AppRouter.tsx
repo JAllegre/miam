@@ -1,4 +1,4 @@
-import RecipeEditor from "@/components/RecipeEditor";
+import RecipeEditorWithPassword from "@/components/RecipeEditorWithPassword";
 import {
   Navigate,
   RouterProvider,
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
       },
       {
         path: `${Paths.Recipes}/:recipeId/update`,
-        element: <RecipeEditor />,
+        element: <RecipeEditorWithPassword />,
         loader: async ({ params: { recipeId } }) => {
           const { recipe } = await getOneRecipe(parseInt(recipeId || "", 10));
           return recipe;
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
       },
       {
         path: `${Paths.Recipes}/add`,
-        element: <RecipeEditor />,
+        element: <RecipeEditorWithPassword />,
         loader: async () => {
           return null;
         },

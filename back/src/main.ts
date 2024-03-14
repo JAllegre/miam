@@ -46,6 +46,15 @@ app.put(`${RECIPES_API}/:recipeId`, async (req: Request, res: Response) => {
   res.json({ message: "Recipe successfully updated" });
 });
 
+app.post(`${RECIPES_API}/check-pwd`, async (req: Request, res: Response) => {
+  const { password } = req.body;
+  if (password !== "leaju") {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
+  res.status(200).json({ message: "Authorized" });
+});
+
 const server = app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });

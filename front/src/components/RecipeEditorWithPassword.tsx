@@ -1,29 +1,28 @@
 import { useState } from "react";
 
 import { checkPassword } from "@/lib/api";
+import { RecipeRow } from "@common/types";
+import { useLoaderData } from "react-router-dom";
 import RecipeEditor from "./RecipeEditor";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
-interface RecipeEditorWithPasswordProps {
-  recipeId?: number;
-}
-export default function RecipeEditorWithPassword({
-  recipeId,
-}: RecipeEditorWithPasswordProps) {
+export default function RecipeEditorWithPassword() {
   const [isIdentified, setIsIdentified] = useState(false);
   const [password, setPassword] = useState("");
   const [isError, setIsError] = useState(false);
+  const recipe = useLoaderData() as RecipeRow;
 
   const handleIdentify = () => {
-    checkPassword(password).then((isPasswordCorrect) => {
-      if (isPasswordCorrect) {
+    checkPassword(password).then(
+      () => {
         setIsIdentified(true);
         setIsError(false);
-      } else {
+      },
+      () => {
         setIsError(true);
       }
-    });
+    );
 
     setPassword("");
   };
@@ -34,7 +33,7 @@ export default function RecipeEditorWithPassword({
 
   if (!isIdentified) {
     return (
-      <div className="flex flex-col gap-1 items-center">
+      <div className="flex flex-col gap-1 items-center p-5">
         <div className="flex gap-2 pt-6 justify-center">
           <Input
             placeholder="Mot de passe"
@@ -51,5 +50,5 @@ export default function RecipeEditorWithPassword({
     );
   }
 
-  return <RecipeEditor recipeId={recipeId} />;
+  return <RecipeEditor recipe={recipe} />;
 }
