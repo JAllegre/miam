@@ -2,7 +2,7 @@ FROM node:20-bookworm-slim as buildStage
 
 WORKDIR /app
 
-COPY ./front/src/types.ts ./front/src/types.ts
+COPY ./common/ ./common
 
 COPY ./back ./back
 
