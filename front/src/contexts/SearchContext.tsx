@@ -1,4 +1,3 @@
-"use client";
 import {
   Dispatch,
   ReactNode,

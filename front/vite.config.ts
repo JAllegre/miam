@@ -1,13 +1,20 @@
 import react from "@vitejs/plugin-react";
 import path from "path";
-import { defineConfig } from "vite";
-// https://vitejs.dev/config/
+import { defineConfig, loadEnv } from "vite";
+const nodeEnv = process.env.NODE_ENV || "development";
+const env = loadEnv(nodeEnv, process.cwd());
+
+console.log("vite.config.ts/FUNC | ", env);
+
 export default defineConfig({
-  base: process.env.NODE_ENV === "production" ? "/miam" : "/",
+  base: nodeEnv === "production" ? "/miam" : "/",
   plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  server: {
+    port: parseInt(env.VITE_PORT),
   },
 });

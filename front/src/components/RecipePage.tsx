@@ -1,18 +1,7 @@
-// "use client";
-// import { getOneRecipe } from "@/app/db";
-// import { Paths } from "@/app/lib/constants";
-// import Link from "next/link";
-// import { useEffect, useState } from "react";
-// import { Button } from "flowbite-react";
-// import { MdEdit } from "react-icons/md";
-// import { RecipeRow } from "@/app/types";
-// import { getLabelFromRecipeKind } from "@/app/lib/utils";
-
 import { getLabelFromRecipeKind } from "@/lib/tools";
 import { GetRecipeResponse } from "@/types";
-
 import { useLoaderData, useParams } from "react-router-dom";
-import { Button } from "./ui/button";
+// import { Button } from "./ui/button";
 
 // Display a line of text
 function Line({ text }: { text: string }) {
@@ -32,15 +21,15 @@ export default function RecipePage() {
         <div className="text-xl font-medium">
           {name} [{getLabelFromRecipeKind(kind)}]
         </div>
-        <Button color="warning" size="sm">
-          {/* <Link
+        {/* <Button color="warning" size="sm"> */}
+        {/* <Link
             href={`${Paths.Recipes}/${recipeId}/update`}
             className="text-[20px]"
           > */}
-          {/* <MdEdit /> */}
-          EDIT
-          {/* </Link> */}
-        </Button>
+        {/* <MdEdit /> */}
+        {/* EDIT */}
+        {/* </Link> */}
+        {/* </Button> */}
       </div>
 
       <div className="flex flex-col-reverse md:flex-row  justify-between gap-2 pt-2">

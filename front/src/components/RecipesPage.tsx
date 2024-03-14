@@ -5,7 +5,6 @@ import { Link, useLoaderData } from "react-router-dom";
 import { SearchContext } from "../contexts/SearchContext";
 import { Paths } from "../lib/constants";
 import { GetRecipesResponse, RecipeKind } from "../types";
-import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 
@@ -19,7 +18,7 @@ export default function RecipesPage() {
 
   const { searchText } = useContext(SearchContext);
   return (
-    <main className="flex-col justify-between items-center p-1 min-h-[100vh]">
+    <main className="flex-col justify-between items-center p-2 min-h-[100vh]">
       <div className="flex justify-between">
         <div className="flex justify-center items-center gap-1 focus:border-0">
           <Checkbox
@@ -52,11 +51,11 @@ export default function RecipesPage() {
             Boisson
           </Label>
         </div>
-        <Button color="warning" size="sm">
+        {/* <Button color="warning" size="sm">
           <Link to={`${Paths.Recipes}/create`} className="text-[28px]">
             +
           </Link>
-        </Button>
+        </Button> */}
       </div>
 
       <ul className="pl-2 pt-2">
