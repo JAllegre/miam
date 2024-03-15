@@ -39,6 +39,7 @@ export default function RecipeEditorWithPassword() {
             placeholder="Mot de passe"
             value={password}
             onChange={handlePasswordInput}
+            autoCapitalize="off"
           />
 
           <Button color="success" onClick={handleIdentify}>
