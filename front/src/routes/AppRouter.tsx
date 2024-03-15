@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: `${Paths.Recipes}/add`,
+        path: `${Paths.Recipes}/create`,
         element: <RecipeEditorWithPassword />,
         loader: async () => {
           return null;

@@ -45,7 +45,7 @@ export async function getAllRecipes(): Promise<RecipeRowShort[]> {
         `SELECT id,name,kind FROM  ${DB_TABLE_RECIPES} ORDER BY name COLLATE NOCASE ASC `,
         (err, rows) => {
           if (err) {
-            throw err;
+            return reject(err);
           }
           resolve(rows);
         }
@@ -53,9 +53,21 @@ export async function getAllRecipes(): Promise<RecipeRowShort[]> {
     } catch (error) {
       reject(error);
     } finally {
-      closeDb(db);
+      end(db);
     }
   });
+}
+
+function end(dbToClose?: sqlite3.Database, stmtToFinalize?: sqlite3.Statement) {
+  if (stmtToFinalize) {
+    stmtToFinalize.finalize();
+    stmtToFinalize = undefined;
+  }
+
+  if (dbToClose) {
+    closeDb(dbToClose);
+    dbToClose = undefined;
+  }
 }
 
 export async function getOneRecipe(id: number): Promise<RecipeRow> {
@@ -66,22 +78,22 @@ export async function getOneRecipe(id: number): Promise<RecipeRow> {
     try {
       db.serialize(() => {
         stmt = db.prepare(`SELECT * FROM ${DB_TABLE_RECIPES} WHERE id=?`);
+
         stmt.get<RecipeRow>(id, (err, row) => {
           if (err) {
-            throw err;
+            return reject(err);
           }
+
           if (row) {
-            resolve(row);
-            return;
+            return resolve(row);
           }
-          throw new Error("Not found");
+          reject(new Error("getOneRecipe : Row Not found"));
         });
       });
     } catch (error) {
       reject(error);
     } finally {
-      stmt?.finalize();
-      closeDb(db);
+      end(db, stmt);
     }
   });
 }
@@ -107,18 +119,16 @@ export async function insertOneRecipe(recipeInput: RecipeInput): Promise<void> {
           ],
           (err: Error) => {
             if (err) {
-              throw err;
+              return reject(err);
             }
+            resolve();
           }
         );
-
-        resolve();
       });
     } catch (error) {
       reject(error);
     } finally {
-      stmt?.finalize();
-      closeDb(db);
+      end(db, stmt);
     }
   });
 }
@@ -147,18 +157,16 @@ export async function updateOneRecipe(
           ],
           (err: Error) => {
             if (err) {
-              throw err;
-              return;
+              return reject(err);
             }
+            resolve();
           }
         );
-        resolve();
       });
     } catch (error) {
       reject(error);
     } finally {
-      stmt?.finalize();
-      closeDb(db);
+      end(db, stmt);
     }
   });
 }

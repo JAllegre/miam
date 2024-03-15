@@ -1,10 +1,11 @@
 import { matchSearch } from "@/lib/tools";
 import { GetRecipesResponse, RecipeKind } from "@common/types";
-import { CakeSlice, Soup, Wine } from "lucide-react";
+import { CakeSlice, Plus, Soup, Wine } from "lucide-react";
 import { ReactNode, useContext, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { SearchContext } from "../contexts/SearchContext";
 import { Paths } from "../lib/constants";
+import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 
@@ -51,11 +52,11 @@ export default function RecipesPage() {
             Boisson
           </Label>
         </div>
-        {/* <Button color="warning" size="sm">
-          <Link to={`${Paths.Recipes}/create`} className="text-[28px]">
-            +
+        <Button size="icon">
+          <Link to={`${Paths.Recipes}/create`} className="text-[20px] p-5">
+            <Plus />
           </Link>
-        </Button> */}
+        </Button>
       </div>
 
       <ul className="pl-2 pt-2">
@@ -74,7 +75,7 @@ export default function RecipesPage() {
                   {recipe.kind === RecipeKind.Course && (
                     <Soup
                       size={18}
-                      strokeWidth={3}
+                      strokeWidth={2}
                       color="purple"
                       className="mb-1"
                     />
@@ -83,7 +84,7 @@ export default function RecipesPage() {
                   {recipe.kind === RecipeKind.Dessert && (
                     <CakeSlice
                       size={18}
-                      strokeWidth={3}
+                      strokeWidth={2}
                       color="orange"
                       className="mb-1"
                     />
@@ -92,7 +93,7 @@ export default function RecipesPage() {
                   {recipe.kind === RecipeKind.Drink && (
                     <Wine
                       size={18}
-                      strokeWidth={3}
+                      strokeWidth={2}
                       color="green"
                       className="mb-1"
                     />

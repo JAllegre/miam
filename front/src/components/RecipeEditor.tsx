@@ -1,6 +1,8 @@
+import { addOneRecipe, updateOneRecipe } from "@/lib/api";
 import convertFileToImageDataUrl from "@/lib/convertFileToImageDataUrl";
 import { getLabelFromRecipeKind } from "@/lib/tools";
 import { RecipeInput, RecipeKind, RecipeRow } from "@common/types";
+import { Trash2 } from "lucide-react";
 import { ChangeEvent, useCallback, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Paths } from "../lib/constants";
@@ -61,16 +63,12 @@ export default function RecipeEditor({ recipe }: RecipeEditorProps) {
 
     formData.set("kind", String(currentKind) || String(RecipeKind.Course));
 
-    console.log(
-      "RecipeEditor.tsx/FUNC | buildRecipeInput(formData)",
-      buildRecipeInput(formData)
-    );
     if (recipe) {
       formData.set("recipeId", String(recipe.id));
-      //await updateOneRecipe(recipe.id, buildRecipeInput(formData));
+      await updateOneRecipe(recipe.id, buildRecipeInput(formData));
       navigate(`${Paths.Recipes}/${recipe.id}`);
     } else {
-      //await addOneRecipe(buildRecipeInput(formData));
+      await addOneRecipe(buildRecipeInput(formData));
       navigate(Paths.Recipes);
     }
   };
@@ -96,8 +94,8 @@ export default function RecipeEditor({ recipe }: RecipeEditorProps) {
       <form onSubmit={handleFormSubmit} action="">
         <input type="hidden" id="recipeId" name="recipeId" value={recipe?.id} />
         <div className="flex items-center gap-2 py-2">
-          <Label htmlFor="name" className="font-bold w-1/4">
-            Nom de la recette:
+          <Label htmlFor="name" className="font-bold">
+            Recette:
           </Label>
           <Input
             id="name"
@@ -109,46 +107,49 @@ export default function RecipeEditor({ recipe }: RecipeEditorProps) {
             spellCheck={true}
             required
             defaultValue={recipe?.name}
-            className="w-3/4"
-          />
-        </div>
-        <div className="flex items-center gap-2 py-2">
-          <Select
-            onValueChange={handleSelectKindChange}
-            value={String(currentKind)}
-          >
-            <SelectTrigger className="w-[250px]">
-              <SelectValue placeholder="Choisissez un type de plat" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {Object.values(RecipeKind)
-                  .filter((kind) => !isNaN(Number(kind)))
-                  .map((kind) => (
-                    <SelectItem key={String(kind)} value={String(kind)}>
-                      {getLabelFromRecipeKind(kind as RecipeKind)}
-                    </SelectItem>
-                  ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="flex items-center gap-2 py-2">
-          <Label htmlFor="peopleNumber" className="font-bold w-1/4">
-            Nombre de personne:
-          </Label>
-          <Input
-            id="peopleNumber"
-            name="peopleNumber"
-            type="number"
-            min={0}
-            max={15}
-            placeholder=""
-            defaultValue={recipe?.peopleNumber}
-            className="w-3/4"
+            className="w-1/2"
           />
         </div>
 
+        <div className="flex items-center justify-start gap-10">
+          <div className="flex items-center gap-2 py-2">
+            <Label className="font-bold">Type:</Label>
+            <Select
+              onValueChange={handleSelectKindChange}
+              value={String(currentKind)}
+            >
+              <SelectTrigger className="w-[120px]">
+                <SelectValue placeholder="" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {Object.values(RecipeKind)
+                    .filter((kind) => !isNaN(Number(kind)))
+                    .map((kind) => (
+                      <SelectItem key={String(kind)} value={String(kind)}>
+                        {getLabelFromRecipeKind(kind as RecipeKind)}
+                      </SelectItem>
+                    ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-center gap-2 py-2">
+            <Label htmlFor="peopleNumber" className="font-bold">
+              Nb personnes:
+            </Label>
+            <Input
+              id="peopleNumber"
+              name="peopleNumber"
+              type="number"
+              min={0}
+              max={15}
+              placeholder=""
+              defaultValue={recipe?.peopleNumber}
+              className="w-[80px]"
+            />
+          </div>
+        </div>
         <div className="py-2">
           <Label htmlFor="ingredients" className="font-bold">
             Ingrédients:
@@ -202,12 +203,8 @@ export default function RecipeEditor({ recipe }: RecipeEditorProps) {
               onChange={handleFileChange}
             />
             {newImageDataUrl && (
-              <Button
-                type="button"
-                color="warning"
-                onClick={handleDeleteImageClick}
-              >
-                {"DEL"}
+              <Button size="icon" onClick={handleDeleteImageClick}>
+                <Trash2 />
               </Button>
             )}
           </div>
