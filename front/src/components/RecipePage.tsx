@@ -28,10 +28,10 @@ export default function RecipePage() {
         </Button>
       </div>
 
-      <div className="flex flex-col md:flex-col  justify-between gap-2 pt-2">
-        <div className="flex flex-row justify-between">
+      <div className="flex flex-col justify-between gap-2 pt-2">
+        <div className="flex flex-col-reverse md:flex-row justify-between">
           <div>
-            <div className="text-md font-medium">
+            <div className="text-md font-medium pt-3 md:pt-0">
               Ingrédients
               {!!peopleNumber && <span>(pour {peopleNumber} personnes)</span>}
             </div>
@@ -43,11 +43,11 @@ export default function RecipePage() {
           </div>
 
           {imageDataUrl && (
-            <div className="basis-1/2">
+            <div className="flex items-center justify-center md:basis-1/2">
               <img
                 src={imageDataUrl}
                 alt="recipe"
-                className="rounded-md shadow-md"
+                className="rounded-md shadow-md h-[200px] md:h-auto"
               />
             </div>
           )}
