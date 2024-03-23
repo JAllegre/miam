@@ -69,7 +69,10 @@ export default function RecipesPage() {
           }
           return [
             ...acc,
-            <li key={recipe.name} className="p-1 hover:bg-gray-100">
+            <li
+              key={`${recipe.name}-${recipe.id}`}
+              className="p-1 hover:bg-gray-100"
+            >
               <Link to={`${Paths.Recipes}/${recipe.id}`}>
                 <div className="flex items-center justify-start gap-2">
                   {recipe.kind === RecipeKind.Course && (

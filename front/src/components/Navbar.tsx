@@ -21,9 +21,13 @@ export default function Navbar() {
     [navigate, pathname, setSearchText]
   );
 
+  const handleLogoClick = useCallback(() => {
+    setSearchText("");
+  }, [setSearchText]);
+
   return (
     <nav className="fixed px-3 md:max-w-2xl m-auto top-0 left-0 right-0 p-1 h-[--nav-height] z-10 flex items-center justify-between bg-white shadow-[0_4px_6px_-4px_gray]">
-      <Link to={Paths.Recipes}>
+      <Link to={Paths.Recipes} onClick={handleLogoClick}>
         <div className="flex items-center justify-start">
           <Utensils size="18" strokeWidth="3" />
           <div className="font-bold text-xl pl-2">miam miam</div>
