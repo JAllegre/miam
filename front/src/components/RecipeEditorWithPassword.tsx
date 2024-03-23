@@ -36,6 +36,7 @@ export default function RecipeEditorWithPassword() {
       <div className="flex flex-col gap-1 items-center p-5">
         <div className="flex gap-2 pt-6 justify-center">
           <Input
+            type="password"
             placeholder="Mot de passe"
             value={password}
             onChange={handlePasswordInput}
