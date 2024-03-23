@@ -1,7 +1,6 @@
-"use server";
 import { RecipeInput, RecipeRow, RecipeRowShort } from "@common/types";
 import sqlite3 from "sqlite3";
-import { DB_FILENAME, DB_TABLE_RECIPES } from "./lib/constants";
+import { DB_FILENAME, DB_TABLE_RECIPES } from "../lib/constants";
 
 const sqlite3v = sqlite3.verbose();
 

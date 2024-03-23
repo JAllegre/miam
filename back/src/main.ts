@@ -2,15 +2,9 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import morgan from "morgan";
-import {
-  getAllRecipes,
-  getOneRecipe,
-  insertOneRecipe,
-  updateOneRecipe,
-} from "./db";
+import miamRouter from "./routers/miamRouter";
 
 const PORT = process.env.PORT || 8084;
-const RECIPES_API = "/api/miam/recipes";
 
 const app = express();
 
@@ -25,75 +19,8 @@ app.get("/", (_req: Request, res: Response) => {
   res.status(200).json({ message: "OK" });
 });
 
-// RECIPE API
-app.get(
-  `${RECIPES_API}`,
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const recipes = await getAllRecipes();
-      res.json({
-        count: recipes.length,
-        recipes,
-      });
-    } catch (err) {
-      next(err);
-    }
-  }
-);
-
-app.get(
-  `${RECIPES_API}/:recipeId`,
-  async (req: Request, res: Response, next) => {
-    try {
-      const recipe = await getOneRecipe(parseInt(req.params.recipeId, 10));
-      res.json({
-        recipe,
-      });
-    } catch (err) {
-      next(err);
-    }
-  }
-);
-
-app.post(
-  `${RECIPES_API}`,
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await insertOneRecipe(req.body);
-      res.status(201).json({ message: "Recipe successfully added" });
-    } catch (err) {
-      next(err);
-    }
-  }
-);
-
-app.put(
-  `${RECIPES_API}/:recipeId`,
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await updateOneRecipe(parseInt(req.params.recipeId, 10), req.body);
-      res.json({ message: "Recipe successfully updated" });
-    } catch (err) {
-      next(err);
-    }
-  }
-);
-
-app.post(
-  `${RECIPES_API}/check-pwd`,
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { password } = req.body;
-      if (password !== "leaju") {
-        res.status(401).json({ message: "Unauthorized" });
-        return;
-      }
-      res.status(200).json({ message: "Authorized" });
-    } catch (err) {
-      next(err);
-    }
-  }
-);
+// ROUTERS
+app.use("/api/miam/", miamRouter);
 
 // ERROR MANAGEMENT
 app.use((_req: Request, res: Response) => {
