@@ -1,10 +1,10 @@
+import express, { NextFunction, Request, Response, Router } from "express";
 import {
   getAllRecipes,
   getOneRecipe,
   insertOneRecipe,
   updateOneRecipe,
-} from "@/db/miamDb";
-import express, { NextFunction, Request, Response, Router } from "express";
+} from "../db/miamDb";
 
 const miamRouter: Router = express.Router();
 
