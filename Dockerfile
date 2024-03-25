@@ -4,9 +4,9 @@ WORKDIR /app
 
 COPY ./api-server/src/features/miam ./api-server/src/features/miam
 
-COPY ./front ./front
+COPY ./miam/ ./miam/
 
-WORKDIR /app/front
+WORKDIR /app/miam
 
 RUN npm install
 
@@ -14,6 +14,6 @@ RUN npm run build
 
 FROM nginx:latest
 
-COPY --from=buildStage /app/front/dist /usr/share/nginx/html
+COPY --from=buildStage /app/miam/dist /usr/share/nginx/html
 
-COPY ./front/nginx.default.conf /etc/nginx/conf.d/default.conf
+COPY ./miam/nginx.default.conf /etc/nginx/conf.d/default.conf
