@@ -18,7 +18,7 @@ export default function RecipePage() {
     <main className="px-1 py-3">
       <div className="flex justify-between">
         <div className="text-2xl font-medium">{name}</div>
-        <Button size="icon">
+        <Button size="icon" className="bg-primary-700 ">
           <Link
             to={`${Paths.Recipes}/${recipeId}/update`}
             className="text-[20px] p-5"

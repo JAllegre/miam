@@ -6,53 +6,54 @@ import { Link, useLoaderData } from "react-router-dom";
 import { SearchContext } from "../contexts/SearchContext";
 import { Paths } from "../lib/constants";
 import { Button } from "./ui/button";
-import { Checkbox } from "./ui/checkbox";
-import { Label } from "./ui/label";
 
 export default function RecipesPage() {
   const [selectedKind, setSelectedKind] = useState(0);
   const { recipes } = useLoaderData() as GetRecipesResponse;
 
-  const handleCheckedChange = (value: RecipeKind) => (checked: boolean) => {
-    setSelectedKind(checked ? value : 0);
+  const handleClickRecipeKind = (newRecipeKind: RecipeKind) => () => {
+    setSelectedKind((currentRecipeKind) =>
+      currentRecipeKind === newRecipeKind ? 0 : newRecipeKind
+    );
   };
 
   const { searchText } = useContext(SearchContext);
+  const toggleButtonClass = `border-primary-800 text-white select-none  border border-solid w-20 flex justify-center items-center`;
+  const bgColor = "bg-primary-700";
+  const bgColorSelected = "bg-primary-600";
+
   return (
     <main className="flex-col justify-between items-center p-2 min-h-[100vh]">
-      <div className="flex justify-between">
-        <div className="flex justify-center items-center gap-1 focus:border-0">
-          <Checkbox
-            id="cb-course"
-            checked={selectedKind === RecipeKind.Course}
-            onCheckedChange={handleCheckedChange(RecipeKind.Course)}
-            className="focus:ring-0"
-          />
-          <Label htmlFor="cb-course" className="mr-3">
-            Plats
-          </Label>
-
-          <Checkbox
-            id="cb-dessert"
-            checked={selectedKind === RecipeKind.Dessert}
-            onCheckedChange={handleCheckedChange(RecipeKind.Dessert)}
-            className="focus:ring-0"
-          />
-          <Label htmlFor="cb-dessert" className="mr-3">
-            Dessert
-          </Label>
-
-          <Checkbox
-            id="cb-drink"
-            checked={selectedKind === RecipeKind.Drink}
-            onCheckedChange={handleCheckedChange(RecipeKind.Drink)}
-            className="focus:ring-0"
-          />
-          <Label htmlFor="cb-drink" className="">
-            Boisson
-          </Label>
+      <div className="flex justify-between p-1">
+        <div className="flex flex-grow justify-center">
+          <div className="flex rounded-md  text-sm cursor-pointer">
+            <div
+              className={`${toggleButtonClass} rounded-l-md ${
+                selectedKind === RecipeKind.Course ? bgColorSelected : bgColor
+              }`}
+              onClick={handleClickRecipeKind(RecipeKind.Course)}
+            >
+              Plats
+            </div>
+            <div
+              className={`${toggleButtonClass} ${
+                selectedKind === RecipeKind.Dessert ? bgColorSelected : bgColor
+              }`}
+              onClick={handleClickRecipeKind(RecipeKind.Dessert)}
+            >
+              Desserts
+            </div>
+            <div
+              className={`${toggleButtonClass} rounded-r-md ${
+                selectedKind === RecipeKind.Drink ? bgColorSelected : bgColor
+              }`}
+              onClick={handleClickRecipeKind(RecipeKind.Drink)}
+            >
+              Boissons
+            </div>
+          </div>
         </div>
-        <Button size="icon">
+        <Button size="icon" className="bg-primary-700 h-7 w-7">
           <Link to={`${Paths.Recipes}/create`} className="text-[20px] p-5">
             <Plus />
           </Link>
@@ -71,7 +72,7 @@ export default function RecipesPage() {
             ...acc,
             <li
               key={`${recipe.name}-${recipe.id}`}
-              className="p-1 hover:bg-gray-100"
+              className="px-2 py-1 hover:bg-gray-100"
             >
               <Link to={`${Paths.Recipes}/${recipe.id}`}>
                 <div className="flex items-center justify-start gap-2">
@@ -102,7 +103,7 @@ export default function RecipesPage() {
                     />
                   )}
 
-                  <span>{recipe.name}</span>
+                  <span className="font-semibold">{recipe.name}</span>
                 </div>
               </Link>
             </li>,
