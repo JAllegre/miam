@@ -157,7 +157,7 @@ export default function RecipeEditor({ recipe }: RecipeEditorProps) {
           <Textarea
             id="ingredients"
             name="ingredients"
-            rows={10}
+            rows={15}
             minLength={30}
             placeholder=""
             spellCheck={true}
@@ -172,7 +172,7 @@ export default function RecipeEditor({ recipe }: RecipeEditorProps) {
           <Textarea
             id="steps"
             name="steps"
-            rows={10}
+            rows={20}
             minLength={30}
             placeholder=""
             spellCheck={true}
